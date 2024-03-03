@@ -21,6 +21,8 @@ return new class extends Migration
             $table->timestamp('read_at')->nullable();
             $table->timestamp('received_at')->nullable();
             $table->softDeletes();
+            $table->primary(['message_id','user_id']);
+
 
         });
     }
