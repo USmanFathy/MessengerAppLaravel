@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Requests\MessageStoringRequest;
 use App\Models\Conversation;
 use App\Models\Recipient;
@@ -71,6 +72,7 @@ class MessagesController extends Controller
                 'last_message_id' => $message->id
             ]);
             DB::commit();
+            broadcast(new MessageSent($message));
         }catch (\Throwable $e){
             DB::rollBack();
             throw $e ;
